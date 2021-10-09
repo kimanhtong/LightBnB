@@ -59,8 +59,15 @@ exports.getUserWithId = getUserWithId;
  */
 const addUser =  function(user) {
   const values = [user.name, user.email, user.password];
-  pool.query(`INSERT INTO users (name, email, password) 
-  VALUES ($1, $2, $3) RETURNING *`, values);
+  pool
+  .query(`INSERT INTO users (name, email, password) 
+  VALUES ($1, $2, $3) RETURNING *`, values)
+  .then (() => {
+    console.log(`added user to DB: ${user.name}`)
+  })
+  .catch((error) => {
+    console.log(error);
+  })
   return Promise.resolve(user);
 }
 exports.addUser = addUser;
@@ -73,7 +80,17 @@ exports.addUser = addUser;
  * @return {Promise<[{}]>} A promise to the reservations.
  */
 const getAllReservations = function(guest_id, limit = 10) {
-  return getAllProperties(null, 2);
+  let values = [guest_id, limit];
+  let reservations = pool
+    .query(`SELECT * FROM reservations WHERE guest_id = $1 LIMIT $2`, values)
+    .then((result) => {
+      return result.rows;
+    })
+    .catch((error) => {
+      console.log(error);
+      return null;
+    });
+  return Promise.resolve(reservations);
 }
 exports.getAllReservations = getAllReservations;
 
