@@ -103,13 +103,95 @@ exports.getAllReservations = getAllReservations;
  * @return {Promise<[{}]>}  A promise to the properties.
  */
 const getAllProperties = function(options, limit = 10) {
+  /* options object might look like this:
+  {
+    city,
+    owner_id,
+    minimum_price_per_night,
+    maximum_price_per_night,
+    minimum_rating;
+  }
+  */
+
+  /* Prepare query with parameters */
+  const queryParams = [];
+
+  /* 1. Add city param */
+  if (options.city) {
+    queryParams.push(`%${options.city.toLowerCase()}%`);
+  } else {
+    queryParams.push(`%`);
+  }
+
+  /* 2. Add minimum_price_per_night param */
+  if (options.minimum_price_per_night) {
+    queryParams.push(`${options.minimum_price_per_night}`);
+  } else {
+    queryParams.push(`0`);
+  }
+
+  /* 3. Add maximum_price_per_night param */
+  if (options.maximum_price_per_night) {
+    queryParams.push(`${options.maximum_price_per_night}`);
+  } else {
+    queryParams.push(`100000000000`); /* 1 billion dollars per night - inexistent price */
+  }
+
+  /* Initialize query string */
+
+  let queryString = `
+  SELECT properties.*, avg(property_reviews.rating) as average_rating
+  FROM properties
+  JOIN property_reviews ON properties.id = property_id
+  WHERE LOWER(city) LIKE $1
+  AND cost_per_night >= $2
+  AND cost_per_night <= $3
+  `
+
+  /* 4. Add owner_id param */
+  if (options.owner_id) {
+    queryParams.push(`${options.owner_id}`);
+    queryString += `AND owner_id = $4`;
+  }
+  else {
+    queryParams.push(`0`);
+    queryString += `AND owner_id > $4`;
+  }
+
+  /* 5. Add minimum_rating param */
+  if (options.minimum_rating) {
+    queryParams.push(`${options.minimum_rating}`);
+  } else {
+    queryParams.push(`0`);
+  }
+  queryString += `
+  GROUP BY properties.id
+  HAVING AVG(rating) >= $5
+  `;
+  
+  /* 6. Add limit param */
+  queryParams.push(`${limit}`);
+  queryString += `
+  ORDER BY cost_per_night
+  LIMIT $6;
+  `;
+
+  console.log(queryString, queryParams);
+  /* Complete preparing the query */
+  /*************************************/
+
   return pool
-    .query(`SELECT * FROM properties LIMIT $1`, [limit])
-    .then((result) => {
-      return result.rows;
+    .query(queryString, queryParams)
+    .then((res) => {
+      if (res.rows) {
+        return res.rows;
+      } else {
+        console.log(`Sorry, no data found!`);
+      }
     })
     .catch((err) => {
-      return err;
+      console.log(err);
+      //return null;
     });
 };
 exports.getAllProperties = getAllProperties;
