@@ -125,16 +125,16 @@ const getAllProperties = function(options, limit = 10) {
 
   /* 2. Add minimum_price_per_night param */
   if (options.minimum_price_per_night) {
-    queryParams.push(`${options.minimum_price_per_night}`);
+    queryParams.push(options.minimum_price_per_night);
   } else {
-    queryParams.push(`0`);
+    queryParams.push(0);
   }
 
   /* 3. Add maximum_price_per_night param */
   if (options.maximum_price_per_night) {
-    queryParams.push(`${options.maximum_price_per_night}`);
+    queryParams.push(options.maximum_price_per_night);
   } else {
-    queryParams.push(`100000000000`); /* 1 billion dollars per night - inexistent price */
+    queryParams.push(100000000); /* 100,000 dollars per night - inexistent price */
   }
 
   /* Initialize query string */
@@ -150,19 +150,19 @@ const getAllProperties = function(options, limit = 10) {
 
   /* 4. Add owner_id param */
   if (options.owner_id) {
-    queryParams.push(`${options.owner_id}`);
+    queryParams.push(options.owner_id);
     queryString += `AND owner_id = $4`;
   }
   else {
-    queryParams.push(`0`);
+    queryParams.push(0);
     queryString += `AND owner_id > $4`;
   }
 
   /* 5. Add minimum_rating param */
   if (options.minimum_rating) {
-    queryParams.push(`${options.minimum_rating}`);
+    queryParams.push(options.minimum_rating);
   } else {
-    queryParams.push(`0`);
+    queryParams.push(0);
   }
   queryString += `
   GROUP BY properties.id
@@ -170,7 +170,7 @@ const getAllProperties = function(options, limit = 10) {
   `;
   
   /* 6. Add limit param */
-  queryParams.push(`${limit}`);
+  queryParams.push(limit);
   queryString += `
   ORDER BY cost_per_night
   LIMIT $6;
