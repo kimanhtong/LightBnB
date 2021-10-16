@@ -111,7 +111,7 @@ $(() => {
       views_manager.show('listings');
     })
     .catch((error) => {
-      console.error(error);
+      console.log(error);
       views_manager.show('listings');
     })
   });
