@@ -160,11 +160,11 @@ $(() => {
     event.preventDefault();
     views_manager.show('none');
     const formArray = $(this).serializeArray();
-    console.log(`adding reservation: ${formArray}`);
-    const startDate = `${formArray[2].value}-${formArray[1].value}-${formArray[0].value}`
-    const endDate = `${formArray[5].value}-${formArray[4].value}-${formArray[3].value}`
+    const startDate = `${formArray[2].value}-${formArray[1].value}-${formArray[0].value}`;
+    const endDate = `${formArray[5].value}-${formArray[4].value}-${formArray[3].value}`;
     const propertyId = $(this).find("#datatag h4").text();
-    const dataObj = { start_date: startDate, end_date: endDate, property_id: propertyId }
+    const dataObj = { start_date: startDate, end_date: endDate, property_id: propertyId };
+    console.log(`adding reservation:\n start_date = ${dataObj.start_date}\n end_date = ${dataObj.end_date}`);
     submitReservation(dataObj)
     .then(() => {
       views_manager.show('listings');

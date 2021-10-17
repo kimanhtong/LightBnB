@@ -5,12 +5,14 @@ $(() => {
   window.views_manager = {};
 
   window.views_manager.show = function(item, data='') {
+    $main.empty();
     $newPropertyForm.detach();
     $propertyListings.detach();
     $searchPropertyForm.detach();
     $logInForm.detach();
     $signUpForm.detach();
     $newReservationForm.detach();
+    $updateReservationForm.detach();
 
     let dataTag = "";
 
@@ -32,8 +34,10 @@ $(() => {
         break;
       case 'newReservation':
         dataTag = `<h4>${data}</h4>`;
+        $($main).empty();
         $newReservationForm.appendTo($main);
-        $(dataTag).appendTo("#datatag");
+        $('#datatag').empty();
+        $(dataTag).appendTo('#datatag');
         break;
       case 'updateReservation':
         // since we're getting more information here, we can include this in an extended data tag:
@@ -52,8 +56,10 @@ $(() => {
         `
         // if there's an error message we want to display that as well:
         const errorMessage = data.error_message ? `<h4>${data.error_message}</h4>` : ``;
+        $($main).empty();
         $(reservationDetails).appendTo($main);
         $updateReservationForm.appendTo($main);
+        $('#datatag').empty();
         $(dataTag).appendTo("#datatag");
         $(errorMessage).appendTo('#error-message');
         break;

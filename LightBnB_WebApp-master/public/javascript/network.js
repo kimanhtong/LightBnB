@@ -57,7 +57,7 @@ function getUpcomingReservations() {
 
 function getIndividualReservation(reservationId) {
   console.log("getIndividualReservation");
-  let url = `/api/reservations/${reservationId}`
+  let url = `/api/reservations/${reservationId}`;
   return $.ajax({
     url,
   })
@@ -82,10 +82,19 @@ const submitReservation = function(data) {
 }
 
 const updateReservation = function (data) {
-  console.log("updateReservation");
+  console.log(`updateReservation ${data}`);
+  console.log(`start date:${data.start_date.toString()}\n end date: ${data.end_date} \n property_id: ${data.property_id}`);
   return $.ajax({
     method: "POST",
     url: `/api/reservations/${data.reservation_id}`,
     data,
+  })
+};
+
+const deleteReservation = function(data) {
+  let url = `/api/reservations/${data}`;
+  return $.ajax({
+    method: "DELETE",
+    url: `/api/reservations/${data}`
   })
 };

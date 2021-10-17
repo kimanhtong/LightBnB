@@ -32,7 +32,7 @@ module.exports = function(router, database) {
     database.getUpcomingReservations(userId)
     .then(reservations => res.send({ reservations }))
     .catch(e => {
-      console.log(e);
+      console.error(e);
       res.send(e);
     })
   });
@@ -42,7 +42,7 @@ module.exports = function(router, database) {
     database.getIndividualReservation(reservationId)
     .then(reservation => res.send(reservation))
     .catch(e => {
-      console.log(e);
+      console.error(e);
       res.send(e);
     })
   })
@@ -73,9 +73,10 @@ module.exports = function(router, database) {
     } 
   })
 
-  router.post('/reservations/:reservation_id', (req, res) => {
-    const reservationId = req.session.reservationId;
-    database.updateReservation({...req.body, guest_id: userId})
+    // update an existing reservation
+  router.post('/reservations/:reservationId', (req, res) => {
+    const reservationId = req.params.reservationId;
+    database.updateReservation({...req.body, reservation_id: reservationId})
     .then(reservation => {
       res.send(reservation)
     })
@@ -83,6 +84,12 @@ module.exports = function(router, database) {
       console.error(e);
       res.send(e);
     })
+  })
+
+  // delete a reservation
+  router.delete('/reservations/:reservationId', (req, res) => {
+    const reservationId = req.params.reservationId;
+    database.deleteReservation(reservationId);
   })
 
   return router;
