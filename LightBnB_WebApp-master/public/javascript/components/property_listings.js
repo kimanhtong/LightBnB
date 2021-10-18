@@ -53,5 +53,5 @@ $(() => {
     } 
   }
   window.propertyListings.addProperties = addProperties;
-
+  
 });

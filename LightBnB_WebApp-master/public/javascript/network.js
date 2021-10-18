@@ -83,7 +83,7 @@ const submitReservation = function(data) {
 
 const updateReservation = function (data) {
   console.log(`updateReservation ${data}`);
-  console.log(`start date:${data.start_date.toString()}\n end date: ${data.end_date} \n property_id: ${data.property_id}`);
+  console.log(`start date:${data.start_date.toString()}\n end date: ${data.end_date} \n reservation id: ${data.reservation_id}`);
   return $.ajax({
     method: "POST",
     url: `/api/reservations/${data.reservation_id}`,
@@ -98,3 +98,11 @@ const deleteReservation = function(data) {
     url: `/api/reservations/${data}`
   })
 };
+
+const getReviewsByProperty = function(propertyId) {
+  console.log("getReviewsByProperty");
+  let url = `/api/reviews/${propertyId}`;
+  return $.ajax({
+    url,
+  })
+}

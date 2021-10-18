@@ -34,9 +34,7 @@ $(() => {
         break;
       case 'newReservation':
         dataTag = `<h4>${data}</h4>`;
-        $($main).empty();
         $newReservationForm.appendTo($main);
-        $('#datatag').empty();
         $(dataTag).appendTo('#datatag');
         break;
       case 'updateReservation':
@@ -56,12 +54,15 @@ $(() => {
         `
         // if there's an error message we want to display that as well:
         const errorMessage = data.error_message ? `<h4>${data.error_message}</h4>` : ``;
-        $($main).empty();
         $(reservationDetails).appendTo($main);
         $updateReservationForm.appendTo($main);
-        $('#datatag').empty();
         $(dataTag).appendTo("#datatag");
         $(errorMessage).appendTo('#error-message');
+        break;
+      case 'showReviews':
+        getReviewsByProperty(data)
+        .then(reviews => propertyReviews.addReviews(reviews))
+        $propertyReviews.appendTo($main);
         break;
       case 'error': {
         const $error = $(`<p>${arguments[1]}</p>`);
