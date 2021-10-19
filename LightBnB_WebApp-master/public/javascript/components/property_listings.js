@@ -43,12 +43,9 @@ $(() => {
       $('.delete-button').on('click', function() {
         const idData = $(this).attr('id').substring(16);
         console.log(`delete ${idData}`);
-        deleteReservation(idData)
-        .then(() => {
-          $(this).closest('article').remove(); // ???how to refresh the page???
-        })
-        .catch ((err) => console.log(err));
-        /*$(this).closest('article').remove();*/
+        //const $forDeletion = $(this).closest('article');
+        deleteReservation(idData);
+        $(this).closest('article').remove();
       })
       $('.add-review-button').on('click', function() {
         const idData = $(this).attr('id').substring(11);

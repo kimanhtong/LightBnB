@@ -23,9 +23,13 @@ $(() => {
                 <button id="delete-property-${property.id}" class="delete-button">Delete</button>
               ` : ``
             }
-            <div id="review-details-${property.id}" class="review_details">
+            ${!isReservation ? `<span id="review-details-${property.id}" class="review_details">
               Browse ${property.review_count} reviews
-            </div>
+              </span>` : ``
+            }
+            ${(isReservation && !isReservation.upcoming) ? 
+              `<button id="add-review-${property.id}" class = "add-review-button">Add a Review</button>` : ``
+            }
           </footer>
         </section>
       </article>
