@@ -351,7 +351,15 @@ const getReviewsByProperty = function(propertyId) {
     ORDER BY reservations.start_date ASC;
   `
   const queryParams = [propertyId];
-  return pool.query(queryString, queryParams).then(res => res.rows)
+  return pool.query(queryString, queryParams).then(res => res.rows);
 }
 
 exports.getReviewsByProperty = getReviewsByProperty;
+
+const addReview = function (reservationId) {
+  const queryString = `INSERT INTO property_reviews(guest_id, property_id, reservation_id, rating, text)
+  VALUES ($1, $2, $3, $4, $5)
+  RETURNING *;`
+  const queryParams = [review.guest_id, review.property_id, review.id, parseInt(review.rating), review.message];
+  return pool.query(queryString, queryParams).then(res => res.rows);
+}

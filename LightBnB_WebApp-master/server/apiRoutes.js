@@ -101,5 +101,17 @@ module.exports = function(router, database) {
     })
   })
 
+  router.post('/reviews/:reservationId', (req, res) => {
+    const reservationId = req.params.reservationId;
+    database.addReview({...req.body})
+    .then(review => {
+      res.send(review)
+    })
+    .catch(e => {
+      console.error(e);
+      res.send(e);
+    })
+  })
+
   return router;
 }

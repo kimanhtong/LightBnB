@@ -106,3 +106,12 @@ const getReviewsByProperty = function(propertyId) {
     url,
   })
 }
+
+const submitReview= function(data) {
+  console.log("submitReview");
+  return $.ajax({
+    method: "POST",
+    url: `api/reviews/${data.reservationId}`,
+    data,
+  });
+}
