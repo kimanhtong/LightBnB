@@ -16,7 +16,7 @@
 │   │   │   ├── property_listings.js
 │   │   │   ├── property_reviews.js
 │   │   │   ├── search_form.js
-│   │   │   └── signup_form.js
+│   │   │   ├── signup_form.js
 │   │   │   └── update_reservation_form.js
 │   │   ├── index.js
 │   │   ├── libraries
