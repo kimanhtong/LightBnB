@@ -29,6 +29,6 @@ Lighthouse BnB is a multi-page web-app for homeowners to rent out their homes to
   - sass: `npm install sass`
 
 - Still in the folder `LightBnB_WebApp-master`, run the development web server using the `npm run local` or `npm start` command.
-- Launch `http://localhost:8080` website, register an account, and log in. The account `piperphelps@live.com` can also be used for more available data.
+- Launch `http://localhost:3000` website, register an account, and log in. The account `piperphelps@live.com` can also be used for more available data.
 - The project uses PostgreSQL installed and configured in the Vagrant VM. To access this database: in LightBnB folder, type `psql` to log on and then type `\c lightbnb` to connect to the database.
 - More information about the Web App structure can be found from the Readme file in the folder LightBnB_WebApp-master. 
