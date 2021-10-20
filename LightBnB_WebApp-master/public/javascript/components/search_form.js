@@ -21,13 +21,12 @@ $(() => {
 
       <div class="search-property-form__field-wrapper">
           <button>Search</button>
-          <a id="search-property-form__cancel" href="#">Cancel</a>
       </div>
     </form>
   `)
   window.$searchPropertyForm = $searchPropertyForm;
 
-  $searchPropertyForm.on('submit', function(event) {
+  $('main').on('submit','#search-property-form',function(event) {
     event.preventDefault();
     const data = $(this).serialize();
 

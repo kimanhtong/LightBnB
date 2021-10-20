@@ -156,7 +156,7 @@ $(() => {
     </form>
   `);
 
-  $newReservationForm.on('submit', function (event) {
+  $('main').on('submit','#new-reservation-form', function (event) {
     event.preventDefault();
     views_manager.show('none');
     const formArray = $(this).serializeArray();
@@ -167,6 +167,7 @@ $(() => {
     console.log(`adding reservation:\n start_date = ${dataObj.start_date}\n end_date = ${dataObj.end_date}`);
     submitReservation(dataObj)
     .then(() => {
+      this.reset();
       views_manager.show('listings');
     })
     .catch((error) => {

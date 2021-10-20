@@ -1,7 +1,6 @@
 $(() => {
   const $newReviewForm = $(`
-    <form>
-      <label for = "textarea"> Please complete your review below </label>
+    <form id="new-review-form">
       <textarea id="new-review-body" rows="4"cols="50"></textarea>
       <label for="new-review-rating">Select a rating:</label>
       <select name="rating" id="new-review-rating">
@@ -14,10 +13,9 @@ $(() => {
       </select>
       <div id="datatag" class="hidden"></div>
       <button type="submit">Submit</button>
-      <a id="review-form__cancel">Cancel</a>
     </form>
   `)
-  $newReviewForm.on('submit', function(event) {
+  $('main').on('submit',"#new-review-form",function(event) {
     event.preventDefault();
     const reviewBody = $('#new-review-body').val();
     const reviewRating = $('#new-review-rating').val();
@@ -36,11 +34,6 @@ $(() => {
       })
     }
   })
-
-  $('body').on('click', '#review-form__cancel', function() {
-    views_manager.show('listings');
-    return false;
-  });
 
   window.$newReviewForm = $newReviewForm;
 });

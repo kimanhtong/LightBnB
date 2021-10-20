@@ -35,6 +35,7 @@ $(() => {
       case 'newReservation':
         dataTag = `<h4>${data}</h4>`;
         $newReservationForm.appendTo($main);
+        $("#datatag").empty();
         $(dataTag).appendTo('#datatag');
         break;
       case 'updateReservation':
@@ -56,6 +57,7 @@ $(() => {
         const errorMessage = data.error_message ? `<h4>${data.error_message}</h4>` : ``;
         $(reservationDetails).appendTo($main);
         $updateReservationForm.appendTo($main);
+        $("#datatag").empty();
         $(dataTag).appendTo("#datatag");
         $(errorMessage).appendTo('#error-message');
         break;
@@ -67,6 +69,7 @@ $(() => {
       case 'newReview':
         dataTag = `<h4>${data}</h4>`;
         $newReviewForm.appendTo($main);
+        $("#datatag").empty();
         $(dataTag).appendTo("#datatag");
         break;
       case 'error': {

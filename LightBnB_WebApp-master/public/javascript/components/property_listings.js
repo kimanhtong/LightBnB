@@ -33,30 +33,30 @@ $(() => {
       addListing(listing);
     }
     if (isReservation) {
-      $('.update-button').on('click', function() {
+      $('main').on('click', '.update-button', function() {
         const idData = $(this).attr('id').substring(16);
         console.log(`update ${idData}`);    
         getIndividualReservation(idData).then(data => {
           views_manager.show("updateReservation", data);       
         });      
       });
-      $('.delete-button').on('click', function() {
+      $('main').on('click', '.delete-button', function() {
         const idData = $(this).attr('id').substring(16);
         console.log(`delete ${idData}`);
-        //const $forDeletion = $(this).closest('article');
         deleteReservation(idData);
+        this.reset();
         $(this).closest('article').remove();
       })
-      $('.add-review-button').on('click', function() {
+      $('main').on('click', '.add-review-button', function() {
         const idData = $(this).attr('id').substring(11);
         views_manager.show("newReview", idData);
       })
     } else {
-      $('.reserve-button').on('click', function() {
+      $('main').on('click', '.reserve-button', function() {
         const idData = $(this).attr('id').substring(17);
         views_manager.show('newReservation', idData);
       })
-      $('.review_details').on('click', function() {
+      $('main').on('click', '.review_details', function() {
         const idData = $(this).attr('id').substring(15);
         views_manager.show('showReviews', idData);
       })

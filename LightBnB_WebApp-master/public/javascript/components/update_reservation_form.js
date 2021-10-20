@@ -156,7 +156,7 @@ $(() => {
     </form>
   `);
 
-  $updateReservationForm.on('submit', function (event) {
+  $('main').on('submit',"#update-reservation-form",function (event) {
     let errorMessage = "";
     let startDate;
     let endDate;
@@ -224,6 +224,7 @@ $(() => {
               propertyListings.addProperties(json.reservations, { upcoming: true })
             })
             views_manager.show('listings');
+            this.reset();
           })
       })
       .catch(error => {

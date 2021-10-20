@@ -24,7 +24,7 @@ $(() => {
   `);
   window.$signUpForm = $signUpForm;
 
-  $signUpForm.on('submit', function(event) {
+  $('main').on('submit',"#sign-up-form", function(event) {
     event.preventDefault();
 
     const data = $(this).serialize();

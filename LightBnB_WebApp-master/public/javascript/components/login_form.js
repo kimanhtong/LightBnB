@@ -20,7 +20,7 @@ $(() => {
 
   window.$logInForm = $logInForm;
 
-  $logInForm.on('submit', function(event) {
+  $('main').on('submit', "#login-form", function(event) {
     event.preventDefault();
 
     const data = $(this).serialize();

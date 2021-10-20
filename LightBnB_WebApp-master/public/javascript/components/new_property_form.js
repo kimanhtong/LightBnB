@@ -81,7 +81,6 @@ $(() => {
 
         <div class="new-property-form__field-wrapper">
             <button>Create</button>
-            <a id="property-form__cancel" href="#">Cancel</a>
         </div>
         
     </form>
@@ -100,7 +99,7 @@ $(() => {
     }
   });
 
-  $newPropertyForm.on('submit', function (event) {
+  $('main').on('submit','#new-property-form',function (event) {
     event.preventDefault();
 
     views_manager.show('none');
@@ -108,17 +107,13 @@ $(() => {
     const data = $(this).serialize();
     submitProperty(data)
     .then(() => {
+      this.reset();
       views_manager.show('listings');
     })
     .catch((error) => {
       console.log(error);
       views_manager.show('listings');
     })
-  });
-
-  $('body').on('click', '#property-form__cancel', function() {
-    views_manager.show('listings');
-    return false;
   });
   
 });
